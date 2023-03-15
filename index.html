@@ -51,6 +51,10 @@
 
 
     <h2>2. Demos -- Voice Conversion<a name="Comparison"></a></h2>
+    <p>To evaluate the performance of the proposed model in streaming voice conversion,IBF-VC, which is also built on the recognition-synthesis framework, was selected as the baseline system. 
+      Since IBF-VC is improved in terms of input features and knowledge distillation, there are no specific requirements for the structure of the model itself, we also use CBHG-AR as the backbone to reinplement IBF-VC for a fair comparison. 
+      The base CBHG-AR model with no modification and use full-utterance input is treated as the topline model, while we simply replace the convolution layers with the causal version to form a naive streaming implementation as the bottomline model. 
+      As a dual-mode model, both streaming and non-streaming modes of DualVC were evaluated in the experiments.</p>
     <!-- <h3>Corresponding to section 3.2 in our paper, below lists the samples that are synthesized for evaluations on the ability to generate the desired speaking style and timbre. We compared our proposed method with the Multi-R and PB on style similarity and speaker similarity.</h3> -->
 
     <table>
@@ -65,6 +69,7 @@
   window.onload = function () {
     let scenes = ["Clean", "Noisy"]
     let speakers = ["db_1", "M2VoC_male"]
+    let genders = ["female", "male"]
     let models = ["Bottomline", "Baseline", "Topline", "DualVC-nonstreaming", "DualVC-streaming"]
     let all_samples = [["1.wav", "4.wav", "DB-CN-F-03_000349.wav", "TenXiaozhi_007_000472.wav"], 
                     ["Y0000019527_oMwYDEEBw0g_S00489.wav", "Y0000019576_oVD68qz-Rrw_S00095.wav", "Y0000019686_omXo90yMpGc_S00895.wav", "Y0000019687_omf0WUsolCc_S00328.wav"]]
@@ -79,6 +84,9 @@
         `
     for (const id in models) {
       model = models[id]
+      if (model == 'Baseline') {
+        model = 'IBF-VC'
+      }
       sample_data += '<td style="text-align: center; width: 150px;" rowspan=1><strong>' + model + '<strong></td>'
     }
     sample_data += "</tr>"
@@ -88,12 +96,13 @@
       let scene = scenes[x]
       let scene_data = ""
       scene_data += '<tr>'
-      scene_data += '<td style="text-align: center; width: 150px;" rowspan=' + 8 + '><strong>' + scene + '<strong></td>'
+      scene_data += '<td style="text-align: center; width: 150px;" rowspan=' + 8 + '><strong>' + scene + ' Source' + '<strong></td>'
       let samples = all_samples[x]
       console.log(scene, samples)
       for (let y in speakers) {
         speaker = speakers[y]
-        scene_data += '<td style="text-align: center; width: 150px;" rowspan=4><audio style="width: 150px;"controls="" src="raw/samples/speakers/' + speaker + '.wav"></td>'
+        gender = genders[y]
+        scene_data += '<td style="text-align: center; width: 150px;" rowspan=4>' + gender + '<audio style="width: 150px;"controls="" src="raw/samples/speakers/' + speaker + '.wav"></td>'
         for (let z in samples) {
           if (z != 0) {
             scene_data += '<tr>'
