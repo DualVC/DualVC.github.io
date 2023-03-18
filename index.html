@@ -51,15 +51,22 @@
 
 
     <h2>2. Demos -- Voice Conversion<a name="Comparison"></a></h2>
-    <p>To evaluate the performance of the proposed model in streaming voice conversion,IBF-VC, which is also built on the recognition-synthesis framework, was selected as the baseline system. 
-      Since IBF-VC is improved in terms of input features and knowledge distillation, there are no specific requirements for the structure of the model itself, we also use CBHG-AR as the backbone to reinplement IBF-VC for a fair comparison. 
-      The base CBHG-AR model with no modification and use full-utterance input is treated as the topline model, while we simply replace the convolution layers with the causal version to form a naive streaming implementation as the bottomline model. 
-      As a dual-mode model, both streaming and non-streaming modes of DualVC were evaluated in the experiments.</p>
-    <!-- <h3>Corresponding to section 3.2 in our paper, below lists the samples that are synthesized for evaluations on the ability to generate the desired speaking style and timbre. We compared our proposed method with the Multi-R and PB on style similarity and speaker similarity.</h3> -->
+    <ul>
+      <li>Bottomline: Replace all convolution layers in the backbone model [1] with the causal version to create a naïve streaming implementation.</li>
+      <li>IBF-VC: Reinplement [2] using the backbone model.</li>
+      <li>Topline: Use the unmodified Backbone model which leverage full-context, but input BNF is extracted from a streaming ASR encoder.</li>
+      <li>DualVC-nonstreaming: Non-streaming mode of our proposed DualVC.</li>
+      <li>DualVC-streaming: Streaming mode of our proposed DualVC.</li>
+    </ul>
 
     <table>
       <tbody id="tbody">
       </tbody>
+    </table> 
+    </br>
+    <cite>[1] X. Tian, Z. Wang, S. Yang, X. Zhou, H. Du, Y. Zhou, M. Zhang, K. Zhou, B. Sisman, L. Xie et al., “The nus & nwpu system for voice conversion challenge 2020,” in Proc. Joint Workshop for the Blizzard Challenge and Voice Conversion Challenge 2020, 2020, pp. 170–17</cite>
+    </br>
+    <cite>[2] Y. Chen, M. Tu, T. Li, X. Li, Q. Kong, J. Li, Z. Wang, Q. Tian, Y. Wang, and Y. Wang, “Streaming voice conversion via intermediate bottleneck features and non-streaming teacher guidance,” CoRR, vol. abs/2210.15158, 202</cite>
   </section>
 </body>
 
