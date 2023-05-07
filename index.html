@@ -120,7 +120,13 @@
           scene_data += '<td style="text-align: center"><audio style="width: 150px;" controls="" src="raw/samples/' + scene + '/source/' + sample + '"></audio></td>'
           for (let w in models) {
             let model = models[w]
-            scene_data += '<td style="text-align: center"><audio style="width: 150px;" controls="" src="raw/samples/' + scene + '/' + model + '/' + speaker + '/' + sample + '"></audio></td>'
+            console.log(speaker + model)
+            if ((speaker == "SSB1956" || speaker == "SSB0273") && (model != "DualVC-streaming")) {
+              console.log("!!!")
+              scene_data += '<td style="text-align: center"><p>N/A</p></td>'
+            } else {
+              scene_data += '<td style="text-align: center"><audio style="width: 150px;" controls="" src="raw/samples/' + scene + '/' + model + '/' + speaker + '/' + sample + '"></audio></td>'
+            }
           }
           scene_data += '</tr>'
         }
