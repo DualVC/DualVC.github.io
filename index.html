@@ -121,7 +121,7 @@
           for (let w in models) {
             let model = models[w]
             console.log(speaker + model)
-            if ((speaker == "SSB1956" || speaker == "SSB0273") && (model != "DualVC-streaming")) {
+            if ((speaker == "SSB1956" || speaker == "SSB0273") && (model != "DualVC-streaming" && model != "DualVC-nonstreaming")) {
               console.log("!!!")
               scene_data += '<td style="text-align: center"><p>N/A</p></td>'
             } else {
